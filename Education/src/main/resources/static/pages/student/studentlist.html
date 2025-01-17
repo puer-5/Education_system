@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>学生列表</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="../../css/common.css" rel="stylesheet">
+    <link href="../../css/layout.css" rel="stylesheet">
+    <style>
+        .student-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            background: white;
+            margin-bottom: 15px;
+            transition: var(--transition);
+        }
+
+        .student-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .student-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--secondary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .student-info {
+            flex: 1;
+        }
+
+        .student-name {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .student-details {
+            display: flex;
+            gap: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .student-detail {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .class-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            background: rgba(52,152,219,0.1);
+            color: var(--primary-color);
+        }
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background: rgba(46,204,113,0.1);
+            color: var(--secondary-color);
+        }
+
+        .status-inactive {
+            background: rgba(231,76,60,0.1);
+            color: var(--danger-color);
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.075);
+        }
+
+        .sidebar-header h3 {
+            margin: 0;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .nav-submenu {
+            padding-left: 20px;
+            list-style: none;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-submenu .nav-link {
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+
+        .nav-submenu .nav-icon {
+            font-size: 14px;
+            width: 20px;
+            margin-right: 5px;
+        }
+
+        .nav-item .fa-angle-down {
+            float: right;
+            margin-top: 5px;
+            transition: transform 0.3s;
+        }
+
+        .nav-item .collapsed .fa-angle-down {
+            transform: rotate(-90deg);
+        }
+
+    </style>
+<body>
+<!-- 复用原有的导航栏代码 -->
+<nav class="sidebar">
+    <div class="sidebar-header">
+        <img class="logo" src="../../image/blue2.png" alt="logo">
+        <h3>教务管理系统</h3>
+    </div>
+    <ul class="nav-menu">
+        <li class="nav-item">
+            <a href="../main.html" class="nav-link">
+                <i class="fas fa-home nav-icon"></i>
+                <span>首页</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="../admin.html" class="nav-link">
+                <i class="fas fa-book nav-icon"></i>
+                <span>管理员管理</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="../course.html" class="nav-link">
+                <i class="fas fa-book nav-icon"></i>
+                <span>课程管理</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="../student.html" data-bs-toggle="collapse" class="nav-link active">
+                <i class="fas fa-book nav-icon"></i>
+                <span>学生管理</span>
+                <i class="fas fa-angle-down"></i>
+            </a>
+            <ul class="collapse show nav-submenu" id="teacherSubmenu">
+                <li class="nav-item">
+                    <a href="studentlist.html" class="nav-link active">
+                        <i class="fas fa-check-circle nav-icon"></i>
+                        <span>学生列表</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="student-info.html" class="nav-link">
+                        <i class="fas fa-calendar-alt nav-icon"></i>
+                        <span>信息修改</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="../teacher.html"  class="nav-link">
+                <i class="fas fa-book nav-icon"></i>
+                <span>教师管理</span>
+            </a>
+
+        </li>
+        <li class="nav-item">
+            <a href="../log.html" class="nav-link">
+                <i class="fas fa-history nav-icon"></i>
+                <span>日志管理</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<div class="main-content">
+    <div class="page-header">
+        <h1 class="page-title">
+            <i class="fas fa-user-graduate"></i>
+            学生列表
+        </h1>
+        <div class="header-actions">
+            <button class="btn btn-primary" onclick="showAddStudent()">
+                <i class="fas fa-plus"></i> 添加学生
+            </button>
+        </div>
+    </div>
+
+    <!-- 搜索和筛选 -->
+    <div class="action-bar">
+        <div class="search-box">
+            <input type="text" class="form-control" placeholder="搜索学生...">
+        </div>
+        <div class="filters">
+            <select class="form-select me-2">
+                <option value="">所有专业</option>
+                <option value="cs">计算机科学</option>
+                <option value="se">软件工程</option>
+            </select>
+            <select class="form-select">
+                <option value="">所有班级</option>
+                <option value="1">2021级1班</option>
+                <option value="2">2021级2班</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- 学生列表 -->
+    <div class="student-list">
+        <!-- 学生卡片将通过JavaScript动态加载 -->
+    </div>
+</div>
+
+<!-- 添加/编辑学生模态框 -->
+<div class="modal fade" id="studentModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="studentModalLabel">添加学生</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="studentForm">
+                    <div class="mb-3">
+                        <label class="form-label">学号</label>
+                        <input type="text" class="form-control" name="studentId" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">姓名</label>
+                        <input type="text" class="form-control" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">性别</label>
+                        <select class="form-control" name="gender" required>
+                            <option value="male">男</option>
+                            <option value="female">女</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">专业</label>
+                        <select class="form-control" name="major" required>
+                            <option value="cs">计算机科学</option>
+                            <option value="se">软件工程</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">班级</label>
+                        <select class="form-control" name="class" required>
+                            <option value="1">2021级1班</option>
+                            <option value="2">2021级2班</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">联系电话</label>
+                        <input type="tel" class="form-control" name="phone" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">邮箱</label>
+                        <input type="email" class="form-control" name="email" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="saveStudent()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 删除确认模态框 -->
+<div class="modal fade" id="deleteConfirmModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">确认删除</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                确定要删除这名学生吗？此操作不可恢复。
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-danger" onclick="confirmDelete()">删除</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+<script src="../../js/student.js"></script>
+</body>
+</html> 

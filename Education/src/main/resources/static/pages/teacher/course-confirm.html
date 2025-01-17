@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>课程确认</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="../../css/common.css" rel="stylesheet">
+    <link href="../../css/layout.css" rel="stylesheet">
+    <style>
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.075);
+        }
+
+        .sidebar-header h3 {
+            margin: 0;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .nav-submenu {
+            padding-left: 20px;
+            list-style: none;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .nav-submenu .nav-link {
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+        
+        .nav-submenu .nav-icon {
+            font-size: 14px;
+            width: 20px;
+            margin-right: 5px;
+        }
+        
+        .nav-item .fa-angle-down {
+            float: right;
+            margin-top: 5px;
+            transition: transform 0.3s;
+        }
+        
+        .nav-item .collapsed .fa-angle-down {
+            transform: rotate(-90deg);
+        }
+    </style>
+</head>
+<body>
+    <!-- 复用原有的导航栏代码 -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <img class="logo" src="../../image/blue2.png" alt="logo">
+            <h3>教务管理系统</h3>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="../main.html" class="nav-link">
+                    <i class="fas fa-home nav-icon"></i>
+                    <span>首页</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="../admin.html" class="nav-link">
+                    <i class="fas fa-book nav-icon"></i>
+                    <span>管理员管理</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="../course.html" class="nav-link">
+                    <i class="fas fa-book nav-icon"></i>
+                    <span>课程管理</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="../student.html" class="nav-link">
+                    <i class="fas fa-book nav-icon"></i>
+                    <span>学生管理</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#teacherSubmenu" data-bs-toggle="collapse" class="nav-link active">
+                    <i class="fas fa-book nav-icon"></i>
+                    <span>教师管理</span>
+                    <i class="fas fa-angle-down"></i>
+                </a>
+                <ul class="collapse show nav-submenu" id="teacherSubmenu">
+                    <li class="nav-item">
+                        <a href="teacherlist.html" class="nav-link">
+                            <i class="fas fa-list-ul nav-icon"></i>
+                            <span>教师列表</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="course-confirm.html" class="nav-link active">
+                            <i class="fas fa-check-circle nav-icon"></i>
+                            <span>课程确认</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="schedule.html" class="nav-link">
+                            <i class="fas fa-calendar-alt nav-icon"></i>
+                            <span>课表查询</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="grade-input.html" class="nav-link">
+                            <i class="fas fa-edit nav-icon"></i>
+                            <span>成绩录入</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="student-list.html" class="nav-link">
+                            <i class="fas fa-users nav-icon"></i>
+                            <span>学生名单</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="../log.html" class="nav-link">
+                    <i class="fas fa-history nav-icon"></i>
+                    <span>日志管理</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">
+                <i class="fas fa-check-circle"></i>
+                课程确认
+            </h1>
+            <div class="header-actions">
+                <button class="btn btn-success">
+                    <i class="fas fa-check"></i> 批量确认
+                </button>
+            </div>
+        </div>
+
+        <!-- 待确认课程列表 -->
+        <div class="stats-cards">
+            <div class="stat-card">
+                <div class="stat-icon" style="background: rgba(46,204,113,0.1); color: var(--secondary-color);">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>5</h3>
+                    <p>待确认课程</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon" style="background: rgba(52,152,219,0.1); color: var(--primary-color);">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>12</h3>
+                    <p>已确认课程</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 课程列表 -->
+        <div class="teacher-list">
+            <div class="teacher-card">
+                <div class="teacher-avatar">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="teacher-info">
+                    <div class="teacher-name">Java程序设计</div>
+                    <div class="teacher-details">
+                        <span class="teacher-detail">
+                            <i class="fas fa-clock"></i>
+                            待确认
+                        </span>
+                        <span class="teacher-detail">
+                            <i class="fas fa-book"></i>
+                            教学大纲已上传
+                        </span>
+                        <span class="teacher-detail">
+                            <i class="fas fa-calendar"></i>
+                            2024-03-20
+                        </span>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn btn-success btn-sm">
+                        <i class="fas fa-check"></i> 确认
+                    </button>
+                    <button class="btn btn-primary btn-sm">
+                        <i class="fas fa-eye"></i> 查看
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

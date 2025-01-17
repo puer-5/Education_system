@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="../css/common.css" rel="stylesheet">
+    <link href="../css/layout.css" rel="stylesheet">
+    <style>
+        .welcome-section {
+            background: linear-gradient(135deg, #6366F1, #4F46E5);
+            border-radius: 20px;
+            padding: 40px;
+            color: white;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border-radius: 50%;
+            transform: translate(150px, -150px);
+        }
+
+        .welcome-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .welcome-subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(99,102,241,0.05));
+            border-radius: 50%;
+            transform: translate(50px, -50px);
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-right: 15px;
+            background: rgba(99,102,241,0.1);
+            color: #6366F1;
+        }
+
+        .stat-title {
+            font-size: 16px;
+            color: #64748B;
+            margin: 0;
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1E293B;
+            margin: 0;
+            line-height: 1;
+        }
+
+        .stat-trend {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .trend-up {
+            color: #10B981;
+        }
+
+        .trend-down {
+            color: #EF4444;
+        }
+
+        .activity-section {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1E293B;
+            margin: 0;
+        }
+
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            background: #F8FAFC;
+            transition: all 0.3s ease;
+        }
+
+        .activity-item:hover {
+            transform: translateX(5px);
+            background: #F1F5F9;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-weight: 500;
+            color: #1E293B;
+            margin-bottom: 5px;
+        }
+
+        .activity-time {
+            font-size: 13px;
+            color: #64748B;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .view-all {
+            color: #6366F1;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .view-all:hover {
+            color: #4F46E5;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.075);
+        }
+
+        .sidebar-header h3 {
+            margin: 0;
+            color: white;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+<nav class="sidebar">
+    <div class="sidebar-header">
+        <img class="logo" src="../image/blue2.png" alt="logo">
+        <h3>教务管理系统</h3>
+    </div>
+    <ul class="nav-menu">
+        <li class="nav-item">
+            <a href="main.html" class="nav-link active">
+                <i class="fas fa-home nav-icon"></i>
+                <span>首页</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="admin.html" class="nav-link">
+                <i class="fas fa-book nav-icon"></i>
+                <span>管理员管理</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="course.html" class="nav-link">
+                <i class="fas fa-book nav-icon"></i>
+                <span>课程管理</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="student.html" class="nav-link">
+                <i class="fas fa-book nav-icon"></i>
+                <span>学生管理</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="teacher.html" class="nav-link">
+                <i class="fas fa-book nav-icon"></i>
+                <span>教师管理</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="log.html" class="nav-link">
+                <i class="fas fa-history nav-icon"></i>
+                <span>日志管理</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+<div class="main-content">
+    <!-- 欢迎区域 -->
+    <div class="welcome-section">
+        <h1 class="welcome-title">欢迎回来，管理员</h1>
+        <p class="welcome-subtitle">今天是 <span id="currentDate"></span></p>
+    </div>
+
+    <!-- 统计卡片 -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-header">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div>
+                    <p class="stat-title">总学生数</p>
+                    <h3 class="stat-value" data-type="students"></h3>
+                </div>
+            </div>
+            <div class="stat-trend trend-up">
+                <i class="fas fa-arrow-up"></i>
+                <span>较上月增长 12%</span>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-header">
+                <div class="stat-icon" style="background: rgba(16,185,129,0.1); color: #10B981;">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <div>
+                    <p class="stat-title">总教师数</p>
+                    <h3 class="stat-value" data-type="teachers"></h3>
+                </div>
+            </div>
+            <div class="stat-trend trend-up">
+                <i class="fas fa-arrow-up"></i>
+                <span>较上月增长 5%</span>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-header">
+                <div class="stat-icon" style="background: rgba(239,68,68,0.1); color: #EF4444;">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div>
+                    <p class="stat-title">总课程数</p>
+                    <h3 class="stat-value" data-type="courses">86</h3>
+                </div>
+            </div>
+            <div class="stat-trend trend-down">
+                <i class="fas fa-arrow-down"></i>
+                <span>较上月减少 3%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 最近活动 -->
+    <div class="activity-section">
+        <div class="section-header">
+            <h2 class="section-title">最近活动</h2>
+            <a href="#" class="view-all">
+                查看全部
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        <div class="activity-list">
+            <div class="activity-item">
+                <div class="activity-icon" style="background: #6366F1">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <div class="activity-content">
+                    <div class="activity-title">新增学生账号</div>
+                    <div class="activity-time">
+                        <i class="far fa-clock"></i>
+                        10分钟前
+                    </div>
+                </div>
+            </div>
+
+            <div class="activity-item">
+                <div class="activity-icon" style="background: #10B981">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="activity-content">
+                    <div class="activity-title">更新课程信息</div>
+                    <div class="activity-time">
+                        <i class="far fa-clock"></i>
+                        30分钟前
+                    </div>
+                </div>
+            </div>
+
+            <div class="activity-item">
+                <div class="activity-icon" style="background: #EF4444">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <div class="activity-content">
+                    <div class="activity-title">系统维护更新</div>
+                    <div class="activity-time">
+                        <i class="far fa-clock"></i>
+                        2小时前
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 设置当前日期
+    document.getElementById('currentDate').textContent =
+        new Date().toLocaleDateString('zh-CN', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            weekday: 'long'
+        });
+
+    // 在页面加载时调用后端接口获取统计数据
+    window.addEventListener('load', function() {
+        fetch('/main/stats')
+            .then(response => response.json())
+            .then(data => {
+                document.querySelector('.stat-value[data-type="students"]').textContent = data.studentCount;
+                document.querySelector('.stat-value[data-type="teachers"]').textContent = data.teacherCount;
+                document.querySelector('.stat-value[data-type="courses"]').textContent = data.courseCount;
+            })
+            .catch(error => {
+                console.error('Error fetching stats:', error);
+            });
+    });
+</script>
+</body>
+</html>

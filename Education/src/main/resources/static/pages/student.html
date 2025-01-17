@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>学生管理</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="../css/common.css" rel="stylesheet">
+    <link href="../css/layout.css" rel="stylesheet">
+    <style>
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.075);
+        }
+
+        .sidebar-header h3 {
+            margin: 0;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .nav-submenu {
+            padding-left: 20px;
+            list-style: none;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-submenu .nav-link {
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+
+        .nav-submenu .nav-icon {
+            font-size: 14px;
+            width: 20px;
+            margin-right: 5px;
+        }
+
+        .nav-item .fa-angle-down {
+            float: right;
+            margin-top: 5px;
+            transition: transform 0.3s;
+        }
+
+        .nav-item .collapsed .fa-angle-down {
+            transform: rotate(-90deg);
+        }
+
+        .stats-cards {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            flex: 1;
+            padding: 20px;
+            background: white;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .stat-info h3 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .stat-info p {
+            margin: 5px 0 0;
+            color: #666;
+        }
+
+        .card {
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .card-title {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+<nav class="sidebar">
+    <div class="sidebar-header">
+        <img class="logo" src="../image/blue2.png" alt="logo">
+        <h3>教务管理系统</h3>
+    </div>
+    <ul class="nav-menu">
+        <li class="nav-item">
+            <a href="main.html" class="nav-link">
+                <i class="fas fa-home nav-icon"></i>
+                <span>首页</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="admin.html" class="nav-link">
+                <i class="fas fa-book nav-icon"></i>
+                <span>管理员管理</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="course.html" class="nav-link">
+                <i class="fas fa-book nav-icon"></i>
+                <span>课程管理</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#studentSubmenu" data-bs-toggle="collapse" class="nav-link active">
+                <i class="fas fa-book nav-icon"></i>
+                <span>学生管理</span>
+                <i class="fas fa-angle-down"></i>
+            </a>
+            <ul class="collapse show nav-submenu" id="studentSubmenu">
+                <li class="nav-item">
+                    <a href="student/studentlist.html" class="nav-link">
+                        <i class="fas fa-list-ul nav-icon"></i>
+                        <span>学生列表</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="student/student-info.html" class="nav-link">
+                        <i class="fas fa-user-edit nav-icon"></i>
+                        <span>信息修改</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="teacher.html" class="nav-link">
+                <i class="fas fa-book nav-icon"></i>
+                <span>教师管理</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="log.html" class="nav-link">
+                <i class="fas fa-history nav-icon"></i>
+                <span>日志管理</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<div class="main-content">
+    <div class="page-header">
+        <h1 class="page-title">
+            <i class="fas fa-user-graduate"></i>
+            学生管理
+        </h1>
+    </div>
+
+    <!-- 统计卡片 -->
+    <div class="stats-cards">
+        <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(46,204,113,0.1); color: var(--secondary-color);">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-info">
+                <h3 id="totalStudents">0</h3>
+                <p>总学生数</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(52,152,219,0.1); color: var(--primary-color);">
+                <i class="fas fa-male"></i>
+            </div>
+            <div class="stat-info">
+                <h3 id="maleStudents">0</h3>
+                <p>男生人数</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(155,89,182,0.1); color: #9b59b6;">
+                <i class="fas fa-female"></i>
+            </div>
+            <div class="stat-info">
+                <h3 id="femaleStudents">0</h3>
+                <p>女生人数</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 图表展示区域 -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">性别比例</h5>
+                    <canvas id="genderChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">专业分布</h5>
+                    <canvas id="majorChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+<script src="../js/student.js"></script>
+</body>
+</html> 

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>课表查询</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="../../css/common.css" rel="stylesheet">
+    <link href="../../css/layout.css" rel="stylesheet">
+    <style>
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.075);
+        }
+
+        .sidebar-header h3 {
+            margin: 0;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .nav-submenu {
+            padding-left: 20px;
+            list-style: none;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-submenu .nav-link {
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+
+        .nav-submenu .nav-icon {
+            font-size: 14px;
+            width: 20px;
+            margin-right: 5px;
+        }
+
+        .nav-item .fa-angle-down {
+            float: right;
+            margin-top: 5px;
+            transition: transform 0.3s;
+        }
+
+        .nav-item .collapsed .fa-angle-down {
+            transform: rotate(-90deg);
+        }
+    </style>
+</head>
+<body>
+    <!-- 复用原有的导航栏代码 -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <img class="logo" src="../../image/blue2.png" alt="logo">
+            <h3>教务管理系统</h3>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="../main.html" class="nav-link">
+                    <i class="fas fa-home nav-icon"></i>
+                    <span>首页</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="../admin.html" class="nav-link">
+                    <i class="fas fa-book nav-icon"></i>
+                    <span>管理员管理</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="../course.html" class="nav-link">
+                    <i class="fas fa-book nav-icon"></i>
+                    <span>课程管理</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="../student.html" class="nav-link">
+                    <i class="fas fa-book nav-icon"></i>
+                    <span>学生管理</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#teacherSubmenu" data-bs-toggle="collapse" class="nav-link active">
+                    <i class="fas fa-book nav-icon"></i>
+                    <span>教师管理</span>
+                    <i class="fas fa-angle-down"></i>
+                </a>
+                <ul class="collapse show nav-submenu" id="teacherSubmenu">
+                    <li class="nav-item">
+                        <a href="teacherlist.html" class="nav-link">
+                            <i class="fas fa-list-ul nav-icon"></i>
+                            <span>教师列表</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="course-confirm.html" class="nav-link">
+                            <i class="fas fa-check-circle nav-icon"></i>
+                            <span>课程确认</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="schedule.html" class="nav-link active">
+                            <i class="fas fa-calendar-alt nav-icon"></i>
+                            <span>课表查询</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="grade-input.html" class="nav-link">
+                            <i class="fas fa-edit nav-icon"></i>
+                            <span>成绩录入</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="student-list.html" class="nav-link">
+                            <i class="fas fa-users nav-icon"></i>
+                            <span>学生名单</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="../log.html" class="nav-link">
+                    <i class="fas fa-history nav-icon"></i>
+                    <span>日志管理</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">
+                <i class="fas fa-calendar-alt"></i>
+                课表查询
+            </h1>
+            <div class="header-actions">
+                <select class="form-select">
+                    <option>第1周</option>
+                    <option>第2周</option>
+                    <!-- 更多周次选项 -->
+                </select>
+            </div>
+        </div>
+
+        <!-- 课表网格 -->
+        <div class="teacher-list">
+            <!-- 使用相同的卡片样式显示课表 -->
+            <div class="row">
+                <div class="col">
+                    <div class="teacher-card">
+                        <h5>周一</h5>
+                        <div class="teacher-details">
+                            <span class="teacher-detail">
+                                <i class="fas fa-clock"></i>
+                                8:00-9:40
+                            </span>
+                            <span class="teacher-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                A-301
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 其他天的课表 -->
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

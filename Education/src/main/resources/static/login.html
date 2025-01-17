@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教务管理系统 - 登录</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(120deg, #3498db, #8e44ad);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            width: 400px;
+        }
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .login-header h1 {
+            color: #2c3e50;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(to right, #3498db, #2ecc71);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52,152,219,0.3);
+        }
+        .error-message {
+            color: #e74c3c;
+            text-align: center;
+            margin-bottom: 15px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="login-container">
+    <div class="login-header">
+        <h1>教务管理系统</h1>
+        <p>请使用您的账号密码登录</p>
+    </div>
+
+    <div id="errorMessage" class="error-message"></div>
+
+    <form id="loginForm">
+        <div class="form-group">
+            <label for="username">用户名</label>
+            <input type="text" class="form-control" id="username" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="password">密码</label>
+            <input type="password" class="form-control" id="password" required>
+        </div>
+        
+        <button type="submit" class="login-btn">登录</button>
+    </form>
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#loginForm').on('submit', function(e) {
+            e.preventDefault();
+            
+            // 禁用登录按钮
+            $('.login-btn').prop('disabled', true);
+            
+            var username = $('#username').val();
+            var password = $('#password').val();
+            
+            console.log('正在发送登录请求...');
+            
+            $.ajax({
+                url: '/login',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    username: username,
+                    password: password
+                }),
+                success: function(response) {
+                    console.log('服务器响应:', response);
+                    if (response.success) {
+                        console.log('登录成功，准备跳转...');
+                        window.location.href = '/pages/main.html';
+                    } else {
+                        console.log('登录失败:', response.message);
+                        $('#errorMessage').text(response.message).show();
+                        // 启用登录按钮
+                        $('.login-btn').prop('disabled', false);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Ajax请求失败:', error);
+                    $('#errorMessage').text('登录失败，请重试').show();
+                    // 启用登录按钮
+                    $('.login-btn').prop('disabled', false);
+                },
+                complete: function() {
+                    // 无论成功还是失败，3秒后隐藏错误信息
+                    setTimeout(function() {
+                        $('#errorMessage').fadeOut();
+                    }, 3000);
+                }
+            });
+        });
+
+        function showError(message) {
+            const errorDiv = $('#errorMessage');
+            errorDiv.text(message).show();
+            setTimeout(function() {
+                errorDiv.fadeOut();
+            }, 3000);
+        }
+    });
+</script>
+</body>
+</html> 

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>日志管理</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="../css/common.css" rel="stylesheet">
+    <link href="../css/layout.css" rel="stylesheet">
+    <style>
+        .log-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: var(--transition);
+        }
+
+        .log-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .log-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .log-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .log-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .log-info {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .log-time {
+            color: #999;
+            font-size: 12px;
+        }
+
+        .log-ip {
+            font-family: monospace;
+            color: var(--primary-color);
+        }
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-success {
+            background: rgba(46,204,113,0.1);
+            color: var(--secondary-color);
+        }
+
+        .status-warning {
+            background: rgba(241,196,15,0.1);
+            color: var(--warning-color);
+        }
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.075);
+        }
+
+        .sidebar-header h3 {
+            margin: 0;
+            color: white;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+<nav class="sidebar">
+    <div class="sidebar-header">
+        <img class="logo" src="../image/blue2.png" alt="logo">
+        <h3>教务管理系统</h3>
+    </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="main.html" class="nav-link">
+                        <i class="fas fa-home nav-icon"></i>
+                        <span>首页</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin.html" class="nav-link">
+                        <i class="fas fa-book nav-icon"></i>
+                        <span>管理员管理</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="course.html" class="nav-link">
+                        <i class="fas fa-book nav-icon"></i>
+                        <span>课程管理</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="student.html" class="nav-link">
+                        <i class="fas fa-book nav-icon"></i>
+                        <span>学生管理</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="teacher.html" class="nav-link">
+                        <i class="fas fa-book nav-icon"></i>
+                        <span>教师管理</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="log.html" class="nav-link active">
+                        <i class="fas fa-history nav-icon"></i>
+                        <span>日志管理</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- 主内容区域 -->
+        <div class="main-content">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <i class="fas fa-history"></i>
+                    日志管理
+                </h1>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" onclick="exportLogs()">
+                        <i class="fas fa-download"></i> 导出日志
+                    </button>
+                </div>
+            </div>
+
+            <!-- 统计卡片 -->
+            <div class="stats-cards">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(46,204,113,0.1); color: var(--secondary-color);">
+                        <i class="fas fa-sign-in-alt"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>1,286</h3>
+                        <p>今日登录次数</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(52,152,219,0.1); color: var(--primary-color);">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>45</h3>
+                        <p>当前在线用户</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(231,76,60,0.1); color: var(--danger-color);">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>12</h3>
+                        <p>异常登录</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(241,196,15,0.1); color: var(--warning-color);">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>98%</h3>
+                        <p>安全退出率</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 搜索和筛选 -->
+            <div class="action-bar">
+                <div class="search-box">
+                    <input type="text" class="form-control" placeholder="搜索日志...">
+                </div>
+                <div class="filters">
+                    <input type="date" class="form-control me-2">
+                    <select class="form-select">
+                        <option value="">所有状态</option>
+                        <option value="success">正常登录</option>
+                        <option value="warning">异常登录</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 日志列表 -->
+            <div class="log-list">
+                <!-- 日志卡片示例 -->
+                <div class="log-card">
+                    <div class="log-header">
+                        <div class="log-user">
+                            <div class="log-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="log-info">
+                                <div class="log-username">admin</div>
+                                <div class="log-ip">192.168.1.100</div>
+                            </div>
+                        </div>
+                        <span class="status-badge status-success">
+                            <i class="fas fa-check-circle"></i>
+                            安全退出
+                        </span>
+                    </div>
+                    <div class="log-time">
+                        <i class="fas fa-clock"></i>
+                        登录时间：2024-01-20 08:30:00
+                        <span class="mx-2">|</span>
+                        <i class="fas fa-sign-out-alt"></i>
+                        退出时间：2024-01-20 17:30:00
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/log.js"></script>
+</body>
+</html> 

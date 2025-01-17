@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.education.mapper.AdminMapper">
+    <resultMap id="BaseResultMap" type="com.education.entity.AdminInfo">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="userpass" property="userpass"/>
+        <result column="nickname" property="nickname"/>
+        <result column="roleId" property="roleId"/>
+        <result column="roleName" property="roleName"/>
+        <result column="sex" property="sex"/>
+        <result column="phone" property="phone"/>
+        <result column="email" property="email"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT * FROM admin_info
+    </select>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT * FROM admin_info WHERE id = #{id}
+    </select>
+
+    <select id="selectByUsername" resultMap="BaseResultMap">
+        SELECT * FROM admin_info WHERE username = #{username}
+    </select>
+
+    <insert id="insert" parameterType="com.education.entity.AdminInfo">
+        INSERT INTO admin_info (username, userpass, nickname, roleId, roleName, sex, phone, email)
+        VALUES (#{username}, #{userpass}, #{nickname}, #{roleId}, #{roleName}, #{sex}, #{phone}, #{email})
+    </insert>
+
+    <update id="update" parameterType="com.education.entity.AdminInfo">
+        UPDATE admin_info
+        SET username = #{username},
+            userpass = #{userpass},
+            nickname = #{nickname},
+            roleId = #{roleId},
+            roleName = #{roleName},
+            sex = #{sex},
+            phone = #{phone},
+            email = #{email}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM admin_info WHERE id = #{id}
+    </delete>
+</mapper> 

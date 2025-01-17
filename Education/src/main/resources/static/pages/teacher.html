@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>教师管理</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="../css/common.css" rel="stylesheet">
+    <link href="../css/layout.css" rel="stylesheet">
+    <style>
+        .teacher-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            background: white;
+            margin-bottom: 15px;
+            transition: var(--transition);
+        }
+
+        .teacher-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .teacher-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .teacher-info {
+            flex: 1;
+        }
+
+        .teacher-name {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .teacher-details {
+            display: flex;
+            gap: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .teacher-detail {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .rank-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            background: rgba(46,204,113,0.1);
+            color: var(--secondary-color);
+        }
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.075);
+        }
+
+        .sidebar-header h3 {
+            margin: 0;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .nav-submenu {
+            padding-left: 20px;
+            list-style: none;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-submenu .nav-link {
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+
+        .nav-submenu .nav-icon {
+            font-size: 14px;
+            width: 20px;
+            margin-right: 5px;
+        }
+
+        .nav-item .fa-angle-down {
+            float: right;
+            margin-top: 5px;
+            transition: transform 0.3s;
+        }
+
+        .nav-item .collapsed .fa-angle-down {
+            transform: rotate(-90deg);
+        }
+    </style>
+</head>
+<body>
+<nav class="sidebar">
+    <div class="sidebar-header">
+        <img class="logo" src="../image/blue2.png" alt="logo">
+        <h3>教务管理系统</h3>
+    </div>
+    <ul class="nav-menu">
+        <li class="nav-item">
+            <a href="main.html" class="nav-link">
+                <i class="fas fa-home nav-icon"></i>
+                <span>首页</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="admin.html" class="nav-link">
+                <i class="fas fa-book nav-icon"></i>
+                <span>管理员管理</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="course.html" class="nav-link">
+                <i class="fas fa-book nav-icon"></i>
+                <span>课程管理</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="student.html" class="nav-link">
+                <i class="fas fa-book nav-icon"></i>
+                <span>学生管理</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#teacherSubmenu" data-bs-toggle="collapse" class="nav-link active">
+                <i class="fas fa-book nav-icon"></i>
+                <span>教师管理</span>
+                <i class="fas fa-angle-down"></i>
+            </a>
+            <ul class="collapse show nav-submenu" id="teacherSubmenu">
+                <li class="nav-item">
+                    <a href="teacher/teacherlist.html" class="nav-link" onclick="showTeacherList()">
+                        <i class="fas fa-list-ul nav-icon"></i>
+                        <span>教师列表</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="teacher/course-confirm.html" class="nav-link" onclick="showCourseConfirm()">
+                        <i class="fas fa-check-circle nav-icon"></i>
+                        <span>课程确认</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="teacher/schedule.html" class="nav-link" onclick="showSchedule()">
+                        <i class="fas fa-calendar-alt nav-icon"></i>
+                        <span>课表查询</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="teacher/grade-input.html" class="nav-link" onclick="showGradeInput()">
+                        <i class="fas fa-edit nav-icon"></i>
+                        <span>成绩录入</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="teacher/student-list.html" class="nav-link" onclick="showStudentList()">
+                        <i class="fas fa-users nav-icon"></i>
+                        <span>学生名单</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="log.html" class="nav-link">
+                <i class="fas fa-history nav-icon"></i>
+                <span>日志管理</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+<!-- 只保留主要内容部分 -->
+<div class="main-content">
+    <div class="page-header">
+        <h1 class="page-title">
+            <i class="fas fa-chalkboard-teacher"></i>
+            教师管理
+        </h1>
+        <div class="header-actions">
+            <button class="btn btn-primary" onclick="showAddTeacher()">
+                <i class="fas fa-plus"></i> 添加教师
+            </button>
+        </div>
+    </div>
+
+    <!-- 统计卡片 -->
+    <div class="stats-cards">
+        <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(46,204,113,0.1); color: var(--secondary-color);">
+                <i class="fas fa-user-tie"></i>
+            </div>
+            <div class="stat-info">
+                <h3>48</h3>
+                <p>总教师数</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(52,152,219,0.1); color: var(--primary-color);">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <div class="stat-info">
+                <h3>15</h3>
+                <p>教授</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(155,89,182,0.1); color: #9b59b6;">
+                <i class="fas fa-book-reader"></i>
+            </div>
+            <div class="stat-info">
+                <h3>20</h3>
+                <p>副教授</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(241,196,15,0.1); color: var(--warning-color);">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <div class="stat-info">
+                <h3>13</h3>
+                <p>讲师</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 搜索和筛选 -->
+    <div class="action-bar">
+        <div class="search-box">
+            <input type="text" class="form-control" placeholder="搜索教师...">
+        </div>
+        <div class="filters">
+            <select class="form-select">
+                <option value="">所有职称</option>
+                <option value="1">教授</option>
+                <option value="2">副教授</option>
+                <option value="3">讲师</option>
+                <option value="4">助教</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- 教师列表 -->
+    <div class="teacher-list">
+        <!-- 教师卡片示例 -->
+        <div class="teacher-card">
+            <div class="teacher-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="teacher-info">
+                <div class="teacher-name">张三</div>
+                <div class="teacher-details">
+                        <span class="teacher-detail">
+                            <i class="fas fa-id-card"></i>
+                            T2024001
+                        </span>
+                    <span class="rank-badge">教授</span>
+                    <span class="teacher-detail">
+                            <i class="fas fa-building"></i>
+                            计算机科学系
+                        </span>
+                    <span class="teacher-detail">
+                            <i class="fas fa-phone"></i>
+                            13800138000
+                        </span>
+                </div>
+            </div>
+            <div class="action-buttons">
+                <button class="btn btn-primary btn-sm" onclick="editTeacher(1)">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-danger btn-sm" onclick="deleteTeacher(1)">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- 添加/编辑教师模态框 -->
+<div class="modal fade" id="teacherModal" tabindex="-1" aria-labelledby="teacherModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="teacherModalLabel">添加教师</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="teacherForm">
+                    <div class="mb-3">
+                        <label class="form-label">工号</label>
+                        <input type="text" class="form-control" name="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">密码</label>
+                        <input type="password" class="form-control" name="password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">性别</label>
+                        <select class="form-control" name="sex" required>
+                            <option value="1">男</option>
+                            <option value="2">女</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">生日</label>
+                        <input type="date" class="form-control" name="birthday" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">职称</label>
+                        <select class="form-control" name="rank" required>
+                            <option value="1">教授</option>
+                            <option value="2">副教授</option>
+                            <option value="3">讲师</option>
+                            <option value="4">助教</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">学院</label>
+                        <input type="text" class="form-control" name="college" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">电话</label>
+                        <input type="tel" class="form-control" name="phone" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="saveTeacher()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 脚本引用 -->
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+<script src="../js/teacher.js"></script>
+</body>
+</html>

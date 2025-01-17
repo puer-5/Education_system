@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>学生信息修改</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="../../css/common.css" rel="stylesheet">
+    <link href="../../css/layout.css" rel="stylesheet">
+</head>
+
+<style>
+    .logo {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    .sidebar-header {
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.075);
+    }
+
+    .sidebar-header h3 {
+        margin: 0;
+        color: white;
+        font-size: 1.5rem;
+    }
+
+    .nav-submenu {
+        padding-left: 20px;
+        list-style: none;
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-submenu .nav-link {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+
+    .nav-submenu .nav-icon {
+        font-size: 14px;
+        width: 20px;
+        margin-right: 5px;
+    }
+
+    .nav-item .fa-angle-down {
+        float: right;
+        margin-top: 5px;
+        transition: transform 0.3s;
+    }
+
+    .nav-item .collapsed .fa-angle-down {
+        transform: rotate(-90deg);
+    }
+</style>
+<body>
+<!-- 复用原有的导航栏代码 -->
+<nav class="sidebar">
+    <div class="sidebar-header">
+        <img class="logo" src="../../image/blue2.png" alt="logo">
+        <h3>教务管理系统</h3>
+    </div>
+    <ul class="nav-menu">
+        <li class="nav-item">
+            <a href="../main.html" class="nav-link">
+                <i class="fas fa-home nav-icon"></i>
+                <span>首页</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="../admin.html" class="nav-link">
+                <i class="fas fa-book nav-icon"></i>
+                <span>管理员管理</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="../course.html" class="nav-link">
+                <i class="fas fa-book nav-icon"></i>
+                <span>课程管理</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="../student.html" data-bs-toggle="collapse" class="nav-link active">
+                <i class="fas fa-book nav-icon"></i>
+                <span>学生管理</span>
+                <i class="fas fa-angle-down"></i>
+            </a>
+            <ul class="collapse show nav-submenu" id="studentSubmenu">
+                <li class="nav-item">
+                    <a href="studentlist.html" class="nav-link">
+                        <i class="fas fa-check-circle nav-icon"></i>
+                        <span>学生列表</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="student-info.html" class="nav-link active">
+                        <i class="fas fa-calendar-alt nav-icon"></i>
+                        <span>信息修改</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="../teacher.html"  class="nav-link">
+                <i class="fas fa-book nav-icon"></i>
+                <span>教师管理</span>
+            </a>
+
+        </li>
+        <li class="nav-item">
+            <a href="../log.html" class="nav-link">
+                <i class="fas fa-history nav-icon"></i>
+                <span>日志管理</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<div class="main-content">
+    <div class="page-header">
+        <h1 class="page-title">
+            <i class="fas fa-user-edit"></i>
+            学生信息修改
+        </h1>
+    </div>
+
+    <!-- 信息修改表单 -->
+    <div class="card">
+        <div class="card-body">
+            <form id="studentInfoForm">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">学号</label>
+                        <input type="text" class="form-control" name="studentId" readonly>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">姓名</label>
+                        <input type="text" class="form-control" name="name" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">性别</label>
+                        <select class="form-control" name="gender" required>
+                            <option value="male">男</option>
+                            <option value="female">女</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">出生日期</label>
+                        <input type="date" class="form-control" name="birthday" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">专业</label>
+                        <select class="form-control" name="major" required>
+                            <option value="cs">计算机科学</option>
+                            <option value="se">软件工程</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">班级</label>
+                        <select class="form-control" name="class" required>
+                            <option value="1">2021级1班</option>
+                            <option value="2">2021级2班</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">联系电话</label>
+                        <input type="tel" class="form-control" name="phone" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">邮箱</label>
+                        <input type="email" class="form-control" name="email" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">家庭住址</label>
+                    <input type="text" class="form-control" name="address">
+                </div>
+                <div class="text-end">
+                    <button type="button" class="btn btn-secondary me-2" onclick="history.back()">返回</button>
+                    <button type="submit" class="btn btn-primary">保存修改</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+<script src="../../js/student-info.js"></script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>菜单管理</title>
+    <style>
+        .menu-tree {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="action-bar">
+            <button class="btn btn-primary" onclick="showAddMenu()">
+                <i class="fas fa-plus"></i> 添加菜单
+            </button>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div id="menuTree" class="menu-tree">
+                    <!-- 菜单树将通过JavaScript动态加载 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加/编辑菜单模态框 -->
+    <div class="modal fade" id="menuModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">添加菜单</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="menuForm">
+                        <div class="mb-3">
+                            <label class="form-label">菜单名称</label>
+                            <input type="text" class="form-control" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">图标</label>
+                            <input type="text" class="form-control" name="icon" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">链接</label>
+                            <input type="text" class="form-control" name="href" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">权限标识</label>
+                            <input type="text" class="form-control" name="perms" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">父级菜单</label>
+                            <select class="form-control" name="parentId">
+                                <option value="0">无</option>
+                                <!-- 父级菜单选项将通过JavaScript动态加载 -->
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">排序</label>
+                            <input type="number" class="form-control" name="sorting" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="saveMenu()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/menu.js"></script>
+</body>
+</html> 
